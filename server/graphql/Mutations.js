@@ -3,6 +3,8 @@ const Event = require("../models/Event.js")
 const User = require('../models/User.js')
 const bcrypt = require('bcryptjs')
 const Types = require("./Types.js")
+const Booking = require('../models/Booking.js')
+const GraphQLDate = require('graphql-date')
 
 const {
     GraphQLID,
@@ -11,7 +13,6 @@ const {
     GraphQLList,
     GraphQLNonNull,
     GraphQLObjectType,
-    GraphQLSchema
 } = graphql
 
 
@@ -53,8 +54,8 @@ const Mutation = new GraphQLObjectType({
                 name: { type: new GraphQLNonNull(GraphQLString) },
                 description: { type: new GraphQLNonNull(GraphQLString) },
                 price: { type: new GraphQLNonNull(GraphQLInt) },
-                date: { type: new GraphQLNonNull(GraphQLInt) },
-                creator: { type: GraphQLString }
+                date: { type: new GraphQLNonNull(GraphQLDate) },
+                creator: { type: GraphQLID }
             },
             async resolve(parent, args) {
                 const event = new Event({
@@ -77,6 +78,24 @@ const Mutation = new GraphQLObjectType({
                         return user.save()
                     })
                     .then(res => event)
+            }
+        },
+
+        createBooking: {
+            type: Types.BookingType,
+            args: {
+                event: { type: new GraphQLNonNull(GraphQLID) },
+                user: { type: new GraphQLNonNull(GraphQLID) }
+            },
+            async resolve(parent, args) {
+                const booking = new Booking({
+                    event: args.event,
+                    user: args.user
+                })
+
+                return booking.save()
+                .then(res => booking)
+                .catch(err => "Error occurred.")
             }
         }
 

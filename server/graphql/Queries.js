@@ -1,6 +1,7 @@
 const graphql = require('graphql')
 const Event = require("../models/Event.js")
 const User = require('../models/User.js')
+const Booking = require("../models/Booking.js")
 const Types = require("./Types.js")
 
 const {
@@ -53,7 +54,30 @@ const Query = new GraphQLObjectType({
                 .then(res => res)
                 .catch(err => "Error occured.")
                 return res
-
+            }
+        },
+        bookings: {
+            type: new GraphQLList(Types.BookingType),
+            args: {
+                id: { type: GraphQLID }
+            },
+            async resolve(parent, args) {
+                let res = await Booking.find({})
+                .then(res => res)
+                .catch(err => "Error occured.")
+                return res
+            }
+        },
+        booking: {
+            type: Types.BookingType,
+            args: {
+                id: { type: GraphQLID }
+            },
+            async resolve(parent, args) {
+                let res = await Booking.findById({ _id: args.id })
+                .then(res => res)
+                .catch(err => "Error occured.")
+                return res
             }
         }
     }
