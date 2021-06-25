@@ -97,6 +97,24 @@ const Mutation = new GraphQLObjectType({
                 .then(res => booking)
                 .catch(err => "Error occurred.")
             }
+        },
+
+        cancelBooking: {
+            type: Types.EventType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLString) }
+            },
+            async resolve(parent, args) {
+                try{
+                    let booking = await Booking.findById(args.id)
+                    let event = await Event.findById(booking.event)
+                    await Booking.deleteOne({_id: args.id})
+                    return event
+                }
+                catch(err) {
+                    console.log(err)
+                }
+            }
         }
 
     }
