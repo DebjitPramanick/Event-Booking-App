@@ -1,7 +1,6 @@
 const graphql = require('graphql')
 const Event = require("../models/Event.js")
 const User = require('../models/User.js')
-const GraphQLDate = require('graphql-date')
 
 const {
     GraphQLID,
@@ -43,7 +42,7 @@ const EventType = new GraphQLObjectType({
         name: { type: GraphQLString },
         description: { type: GraphQLString },
         price: { type: GraphQLInt },
-        date: { type: GraphQLDate },
+        date: { type: GraphQLString },
         creator: {
             type: UserType,
             resolve(parent, args) {
@@ -71,8 +70,8 @@ const BookingType = new GraphQLObjectType({
                 return res
             }
         },
-        createdAt: { type: GraphQLDate },
-        updatedAt: { type: GraphQLDate }
+        createdAt: { type: GraphQLString },
+        updatedAt: { type: GraphQLString }
     })
 })
 

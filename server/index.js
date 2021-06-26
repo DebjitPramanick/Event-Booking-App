@@ -4,12 +4,13 @@ const dotenv = require('dotenv')
 const {graphqlHTTP} = require('express-graphql')
 const schema = require("./graphql/Schema.js")
 const mongoose = require('mongoose')
-
+const isAuth = require("./middleware/is-auth.js")
 const config = dotenv.config()
 
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use(isAuth)
 
 const monogoURL = config.parsed.MONGO_URL
 mongoose.connect(monogoURL, {

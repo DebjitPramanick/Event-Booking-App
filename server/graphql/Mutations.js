@@ -4,7 +4,6 @@ const User = require('../models/User.js')
 const bcrypt = require('bcryptjs')
 const Types = require("./Types.js")
 const Booking = require('../models/Booking.js')
-const GraphQLDate = require('graphql-date')
 
 const {
     GraphQLID,
@@ -54,10 +53,15 @@ const Mutation = new GraphQLObjectType({
                 name: { type: new GraphQLNonNull(GraphQLString) },
                 description: { type: new GraphQLNonNull(GraphQLString) },
                 price: { type: new GraphQLNonNull(GraphQLInt) },
-                date: { type: new GraphQLNonNull(GraphQLDate) },
+                date: { type: new GraphQLNonNull(GraphQLString) },
                 creator: { type: GraphQLID }
             },
-            async resolve(parent, args) {
+            async resolve(parent, args, req) {
+
+                if(!req.isAuth){
+                    throw new Error("Unauthenticated user!")
+                }
+
                 const event = new Event({
                     name: args.name,
                     description: args.description,
@@ -87,7 +91,11 @@ const Mutation = new GraphQLObjectType({
                 event: { type: new GraphQLNonNull(GraphQLID) },
                 user: { type: new GraphQLNonNull(GraphQLID) }
             },
-            async resolve(parent, args) {
+            async resolve(parent, args, req) {
+
+                if(!req.isAuth){
+                    throw new Error("Unauthenticated user!")
+                }
                 const booking = new Booking({
                     event: args.event,
                     user: args.user
@@ -104,7 +112,10 @@ const Mutation = new GraphQLObjectType({
             args: {
                 id: { type: new GraphQLNonNull(GraphQLString) }
             },
-            async resolve(parent, args) {
+            async resolve(parent, args, req) {
+                if(!req.isAuth){
+                    throw new Error("Unauthenticated user!")
+                }
                 try{
                     let booking = await Booking.findById(args.id)
                     let event = await Event.findById(booking.event)
