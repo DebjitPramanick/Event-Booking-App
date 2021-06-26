@@ -12,6 +12,15 @@ const {
 } = graphql
 
 
+const AuthType = new GraphQLObjectType({
+    name: "Auth",
+    fields: () => ({
+        userId: { type: GraphQLID },
+        token: { type: GraphQLString },
+        tokenExp: { type: GraphQLInt }
+    })
+})
+
 const UserType = new GraphQLObjectType({
     name: "User",
     fields: () => ({
@@ -70,5 +79,6 @@ const BookingType = new GraphQLObjectType({
 module.exports = {
     UserType,
     EventType,
-    BookingType
+    BookingType,
+    AuthType
 }
