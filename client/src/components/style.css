@@ -1,0 +1,101 @@
+.header{
+    padding: 10px 4px;
+    background-color: #5900ff;
+    color: #fff;
+}
+
+.header-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/*  Event card  */
+
+
+.card-container{
+    box-shadow: 0 0 10px #cfcfcf;
+    padding: 12px;
+    border-radius: 6px;
+    position: relative;
+    height: fit-content;
+}
+
+.card-container h3{
+    margin-bottom: 4px;
+}
+
+.card-container #date{
+    color: grey;
+    font-size: 14px;
+}
+
+.card-container #date span{
+    color: #5900ff;
+}
+
+.card-container #desc{
+    margin: 12px 0;
+    color: grey;
+    font-size: 14px;
+}
+
+.card-container .created-by{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 12px;
+    background-color: #5900ff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.card-container button{
+    margin-top: 16px;
+}
+
+
+/*  Create Form  */
+
+.create-form .input-field{
+    margin-bottom: 16px;
+}
+
+.create-form .input-fields{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 10px;
+}
+
+.create-form .input-field label{
+    font-size: 13px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.create-form input,
+.create-form textarea{
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+    padding: 8px;
+    outline: 0;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    resize: none;
+}
+
+.create-form input:focus,
+.create-form textarea:focus{
+    box-shadow: 0 0 6px #cfcfcf;
+}
