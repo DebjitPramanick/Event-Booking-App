@@ -27,8 +27,6 @@ const AuthForm = (props) => {
         }
     }
 
-
-
     return (
         <div className="auth-component">
             <div className="auth-heading">
