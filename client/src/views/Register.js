@@ -1,10 +1,11 @@
 import React from 'react'
+import AuthForm from '../components/AuthForm'
 import "./style.css"
 
 const Register = () => {
     return (
-        <div>
-            This is register page.
+        <div className="view-container auth-container">
+            <AuthForm authType="register"/>
         </div>
     )
 }

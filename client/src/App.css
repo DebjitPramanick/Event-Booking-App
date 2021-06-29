@@ -44,6 +44,12 @@
 }
 
 
+.btn-flex{
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+
 .primary-btn{
   cursor: pointer;
   background-color: #ffffff;
@@ -52,7 +58,7 @@
   border: 0;
   padding: 6px 10px;
   border-radius: 3px;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 
@@ -62,6 +68,18 @@
   color: #fff;
   outline: 0;
   border: 0;
+  padding: 6px 10px;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.auth-btn{
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #5900ff;
+  outline: 0;
+  border: 2px solid #5900ff;
   padding: 6px 10px;
   border-radius: 4px;
   width: 100%;

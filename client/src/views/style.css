@@ -2,6 +2,13 @@
     margin: 20px;
 }
 
+.auth-container{
+    height: calc(100vh - 89px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .view-flex{
     display: flex;
     column-gap: 36px;

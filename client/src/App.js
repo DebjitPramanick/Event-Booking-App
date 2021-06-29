@@ -9,8 +9,8 @@ import "./App.css"
 const App = () => {
     return (
         <div>
-            <Header />
             <Router>
+                <Header />
                 <Switch>
                     <Route path="/login" component={Login}/>
                     <Route path="/register" component={Register}/>
