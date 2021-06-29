@@ -9,6 +9,7 @@ const AuthForm = (props) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
 
     const [createUser] = useMutation(CREATE_USER)
 
@@ -24,6 +25,17 @@ const AuthForm = (props) => {
                     password: password
                 }
             })
+            .then(res => {
+                let user = {
+                    email: res.data.createUser.email,
+                    id: res.data.createUser.id
+                }
+                localStorage.setItem('user', JSON.stringify(user))
+
+            })
+            .catch(err => {
+                setError(err)
+            })
         }
     }
 
@@ -32,6 +44,7 @@ const AuthForm = (props) => {
             <div className="auth-heading">
                 {authType === 'login' ? <h2>Log In</h2> : <h2>Register</h2>}
             </div>
+            {/* {error !== '' && <div className="error">{error}</div> } */}
             <form className="authform-container">
                 <div className="auth-field">
                     <label>Enter email: </label>
