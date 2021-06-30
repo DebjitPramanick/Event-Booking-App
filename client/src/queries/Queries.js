@@ -37,3 +37,14 @@ mutation($email: String!, $password: String){
   }
 }
 `
+
+
+export const LOGIN_USER = gql`
+query Login($email: String!, $password: String!){
+  login(email: $email, password: $password){
+    userId
+    token
+    tokenExp
+  }
+}
+`

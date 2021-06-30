@@ -1,22 +1,34 @@
-import { useMutation } from '@apollo/client'
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-import { CREATE_USER } from '../queries/Queries'
+import { CREATE_USER, LOGIN_USER } from '../queries/Queries'
 
 const AuthForm = (props) => {
 
-    const { authType } = props
+    const { authType, route } = props
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
+    const [err, setErr] = useState('')
 
     const [createUser] = useMutation(CREATE_USER)
+    const [login, {data, error, loading}] = useLazyQuery(LOGIN_USER)
 
-    const handleAuth = (e) => {
+    const handleAuth = async(e) => {
         e.preventDefault()
         if(authType === 'login'){
-            console.log("Log in")
+            const res = await login({
+                variables: {
+                    email: email,
+                    password: String(password)
+                }
+            })
+
+            localStorage.setItem('user', JSON.stringify(data.login))
+            if(data){
+                route.history.push('/')
+            }
+
         }
         else{
             createUser({
@@ -31,10 +43,10 @@ const AuthForm = (props) => {
                     id: res.data.createUser.id
                 }
                 localStorage.setItem('user', JSON.stringify(user))
-
+                route.history.push('/')
             })
-            .catch(err => {
-                setError(err)
+            .catch(er => {
+                setErr(er)
             })
         }
     }
