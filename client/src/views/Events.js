@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import "./style.css"
 import EventCard from "../components/EventCard"
 import FormContainer from "../components/FormContainer"

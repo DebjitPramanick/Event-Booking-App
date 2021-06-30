@@ -27,7 +27,6 @@ export const GET_EVENTS = gql`
   }
 `
 
-
 export const CREATE_USER = gql`
 mutation($email: String!, $password: String){
   createUser(email: $email, password: $password){
@@ -38,6 +37,20 @@ mutation($email: String!, $password: String){
 }
 `
 
+export const GET_USER = gql`
+query User($id: ID!){
+  user(id: $id){
+      email
+      id
+      createdEvents {
+      id
+      name
+      description
+      date
+    }
+  }
+}
+`
 
 export const LOGIN_USER = gql`
 query Login($email: String!, $password: String!){

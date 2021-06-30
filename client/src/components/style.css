@@ -4,10 +4,15 @@
     color: #fff;
 }
 
-.header-flex{
+.header-flex,
+.user-details-flex{
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.user-details-flex{
+    column-gap: 16px;
 }
 
 

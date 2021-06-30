@@ -1,53 +1,55 @@
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
-import React, {useState} from 'react'
+import { useLazyQuery, useMutation } from '@apollo/client'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CREATE_USER, LOGIN_USER } from '../queries/Queries'
+import { AppContext } from '../utils/AppContext'
 
 const AuthForm = (props) => {
 
     const { authType, route } = props
+
+    const {login} = useContext(AppContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [err, setErr] = useState('')
 
     const [createUser] = useMutation(CREATE_USER)
-    const [login, {data, error, loading}] = useLazyQuery(LOGIN_USER)
+    const [userLogin] = useLazyQuery(LOGIN_USER, {
+        onCompleted: someData => {
+            login(someData.login.userId, someData.login.token, someData.login.eokenExp)
+            // route.history.push('/')
+        }
+    })
 
-    const handleAuth = async(e) => {
+    const handleAuth = (e) => {
         e.preventDefault()
-        if(authType === 'login'){
-            const res = await login({
+        if (authType === 'login') {
+            userLogin({
                 variables: {
                     email: email,
                     password: String(password)
                 }
             })
-
-            localStorage.setItem('user', JSON.stringify(data.login))
-            if(data){
-                route.history.push('/')
-            }
-
         }
-        else{
+        else {
             createUser({
                 variables: {
                     email: email,
                     password: password
                 }
             })
-            .then(res => {
-                let user = {
-                    email: res.data.createUser.email,
-                    id: res.data.createUser.id
-                }
-                localStorage.setItem('user', JSON.stringify(user))
-                route.history.push('/')
-            })
-            .catch(er => {
-                setErr(er)
-            })
+                .then(res => {
+                    let user = {
+                        email: res.data.createUser.email,
+                        id: res.data.createUser.id
+                    }
+                    localStorage.setItem('user', JSON.stringify(user))
+                    route.history.push('/')
+                })
+                .catch(er => {
+                    setErr(er)
+                })
         }
     }
 
