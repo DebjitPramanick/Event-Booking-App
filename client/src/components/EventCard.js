@@ -10,7 +10,7 @@ const EventCard = (props) => {
     }
 
     const getDate = (date) => {
-        const d = Number(date)*1000
+        const d = Number(date)
         const resDate = new Date(d)
         return `${resDate.getDate()}-${resDate.getMonth()}-${resDate.getFullYear()}`
     }

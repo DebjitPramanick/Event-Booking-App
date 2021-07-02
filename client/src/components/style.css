@@ -29,15 +29,19 @@
 
 
 .card-container{
-    box-shadow: 0 0 10px #cfcfcf;
+    box-shadow: 2px 2px 5px #dddddd, -2px -2px 5px #dddddd;
     padding: 12px;
-    border-radius: 6px;
+    border-radius: 4px;
     position: relative;
     height: fit-content;
 }
 
 .card-container h3{
     margin-bottom: 4px;
+    width: 160px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .card-container #date{
@@ -53,6 +57,13 @@
     margin: 12px 0;
     color: grey;
     font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 16px;
+    height: 32px;   
 }
 
 .card-container .created-by{
@@ -158,4 +169,33 @@
 .help-flex a{
     color: #5900ff;
     text-decoration: none;
+}
+
+
+/* Tools Container */
+
+.tools-container{
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px #dddddd;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.navigators{
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    column-gap: 20px;
+}
+
+.navigators p{
+    color: #5900ff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.5s;
+}
+
+.navigators p:hover{
+    font-weight: bold;
 }

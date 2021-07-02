@@ -21,9 +21,9 @@ const Header = () => {
                         <Link to="/register"><button className="primary-btn">Register</button></Link>
                     </div>)
                     : loading && !error ? <p>Loading...</p>
-                    : !loading ?(
+                    : !loading && data !== null ?(
                         <div className="user-details-flex">
-                            <p>fdsfsdsfsd</p>
+                            <p>{data.user.email.split('@')[0]}</p>
                             <button className="primary-btn" onClick={logout}>Log Out</button>
                         </div>
                     ) : <p>Not Looged In!</p>

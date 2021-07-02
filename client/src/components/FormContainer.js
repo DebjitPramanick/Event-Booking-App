@@ -8,8 +8,7 @@ import { AppContext } from '../utils/AppContext';
 
 const FormContainer = () => {
 
-
-    const {userId} = useContext(AppContext)
+    const { userId } = useContext(AppContext)
 
     const [data, setData] = useState({
         name: '',
@@ -37,23 +36,29 @@ const FormContainer = () => {
         }).catch(err => {
             setError(err)
         })
+        setData({
+            name: '',
+            description: '',
+            price: 0,
+            date: new Date()
+        })
     }
 
     return (
         <form className="create-form">
             <div className="input-field">
                 <label>Event name:</label>
-                <input placeholder="Event name" 
-                value={data.name}
-                onChange={(e) => setData({...data, name: e.target.value})}>
+                <input placeholder="Event name"
+                    value={data.name}
+                    onChange={(e) => setData({ ...data, name: e.target.value })}>
                 </input>
             </div>
 
             <div className="input-field">
                 <label>Event description:</label>
                 <textarea placeholder="Event description"
-                value={data.description}
-                onChange={(e) => setData({...data, description: e.target.value})}>
+                    value={data.description}
+                    onChange={(e) => setData({ ...data, description: e.target.value })}>
                 </textarea>
             </div>
 
@@ -62,8 +67,8 @@ const FormContainer = () => {
                 <div className="input-field">
                     <label>Event price:</label>
                     <input type="number" placeholder="Event price"
-                    value={data.price}
-                    onChange={(e) => setData({...data, price: e.target.value})}>
+                        value={data.price}
+                        onChange={(e) => setData({ ...data, price: e.target.value })}>
                     </input>
                 </div>
 
@@ -71,7 +76,7 @@ const FormContainer = () => {
                     <label>Event date:</label>
                     <DatePicker
                         selected={data.date}
-                        onChange={(d) => setData({...data, date: d})} />
+                        onChange={(d) => setData({ ...data, date: d })} />
                 </div>
             </div>
 
