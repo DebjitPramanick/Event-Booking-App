@@ -27,5 +27,4 @@ const EventCard = (props) => {
         </div>
     )
 }
-
 export default EventCard
