@@ -1,0 +1,31 @@
+.view-container{
+    margin: 20px;
+}
+
+.auth-container{
+    height: calc(100vh - 89px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-flex{
+    display: flex;
+    column-gap: 36px;
+}
+
+.view-flex .flex-child:first-child{
+    flex-basis: 75%;
+}
+
+.view-flex .flex-child:nth-child(2){
+    flex-basis: 25%;
+}
+
+.cards-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    justify-content: center;
+    row-gap: 16px;
+    column-gap: 16px;
+}
