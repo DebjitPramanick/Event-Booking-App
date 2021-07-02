@@ -9,7 +9,7 @@ const Header = () => {
 
 
     const { userId, token, logout } = useContext(AppContext)
-    const { data, loading, error } = useQuery(GET_USER, { variables: { id: userId } })
+    const { data, loading, error } = useQuery(GET_USER, { variables: { id: userId !== '' ? userId : '' } })
 
     return (
         <div className="header">
@@ -26,7 +26,7 @@ const Header = () => {
                             <p>fdsfsdsfsd</p>
                             <button className="primary-btn" onClick={logout}>Log Out</button>
                         </div>
-                    ) : null
+                    ) : <p>Not Looged In!</p>
                 }
 
             </div>

@@ -15,6 +15,15 @@
     column-gap: 16px;
 }
 
+.error-message{
+    background-color: #ffacac;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    color: #474747;
+    font-size: 12px;
+}
+
 
 /*  Event card  */
 
@@ -147,7 +156,6 @@
 }
 
 .help-flex a{
-
     color: #5900ff;
     text-decoration: none;
 }

@@ -17,7 +17,7 @@ const AuthForm = (props) => {
     const [createUser] = useMutation(CREATE_USER)
     const [userLogin] = useLazyQuery(LOGIN_USER, {
         onCompleted: someData => {
-            login(someData.login.userId, someData.login.token, someData.login.eokenExp)
+            login(someData.login.userId, someData.login.token, someData.login.tokenExp)
             // route.history.push('/')
         }
     })

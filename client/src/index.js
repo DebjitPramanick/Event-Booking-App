@@ -6,12 +6,17 @@ import App from './App';
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider,
+  ApolloProvider
 } from "@apollo/client";
+
+const user = JSON.parse(localStorage.getItem('user'))
 
 const client = new ApolloClient({
   uri: 'http://localhost:8000/graphql',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  headers: {
+    authorization: user ? `Bearer ${user.token}` : ' ',
+  }
 });
 
 ReactDOM.render(
