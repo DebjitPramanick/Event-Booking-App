@@ -14,20 +14,17 @@ const Events = () => {
 
     const { userId } = useContext(AppContext)
     console.log(userId)
-    const [user] = useLazyQuery(GET_USER, { variables: { id: userId } },{
+    const [getData] = useLazyQuery(GET_USER,{
         onCompleted: someData => {
-            console.log(someData)
             setUserEvents(someData.user.createdEvents)
         }
     })
 
-    console.log(userEvents)
     const { data, loading } = useQuery(GET_EVENTS)
 
     useEffect(() => {
         if(selected === 'user'){
-            console.log(selected)
-            user()
+            getData({ variables: { id: userId } })
         }
     }, [selected])
 
@@ -41,12 +38,19 @@ const Events = () => {
             <div className="view-flex">
                 <div className="sub-container flex-child">
 
-                    <Tools setSelected={setSelected}/>
+                    <Tools 
+                    setSelected={setSelected}
+                    selected={selected}/>
 
                     <div className="cards-container">
                         {
-                            data.events.map(e => (
-                                <EventCard event={e} />
+                            selected === 'all' ? (
+                                data.events.map(e => (
+                                    <EventCard event={e} selected={selected} />
+                                ))
+                            )
+                            : userEvents.map(e => (
+                                <EventCard event={e} selected={selected} />
                             ))
                         }
                     </div>

@@ -47,6 +47,7 @@ query User($id: ID!){
       name
       description
       date
+      price
     }
   }
 }

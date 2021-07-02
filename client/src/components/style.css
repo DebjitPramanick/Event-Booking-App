@@ -180,6 +180,7 @@
     box-shadow: 0 2px 5px #dddddd;
     margin-bottom: 20px;
     border-radius: 4px;
+    height: 50px;
 }
 
 .navigators{
@@ -192,10 +193,13 @@
 .navigators p{
     color: #5900ff;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     transition: 0.5s;
 }
 
-.navigators p:hover{
-    font-weight: bold;
+.navigators p.cur{
+    background-color: #5900ff;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 20px;
 }
