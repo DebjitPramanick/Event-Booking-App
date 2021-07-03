@@ -1,8 +1,23 @@
-import React from 'react'
+import { useMutation } from '@apollo/client'
+import React, { useContext } from 'react'
+import { BOOK_EVENT } from '../queries/Queries'
+import {AppContext} from "../utils/AppContext"
 
 const EventCard = (props) => {
 
+    const {userId} = useContext(AppContext)
     const {event, selected} = props
+
+    const [createBooking] = useMutation(BOOK_EVENT)
+
+    const bookEvent = () => {
+        createBooking({variables: {
+            event: event.id,
+            user: userId
+        }})
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
 
     const getName = (email) => {
         const res = email.slice(0,1)
@@ -20,7 +35,8 @@ const EventCard = (props) => {
             <h3>{event.name}</h3>
             <p id="date">Event date: <span>{getDate(event.date)}</span></p>
             <p id="desc">{event.description}</p>
-            <button className="secondary-btn">$ {event.price}</button>
+            {event.creator.id === userId ? <button className="secondary-btn">View Details</button>
+            : <button className="secondary-btn" onClick={bookEvent}>$ {event.price}</button>}
             {selected === 'all' ? (
                 <div className="created-by">{getName(event.creator.email)}</div>
             ) : null}

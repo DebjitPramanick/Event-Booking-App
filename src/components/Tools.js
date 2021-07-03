@@ -11,6 +11,8 @@ const Tools = (props) => {
                 className={`${selected === 'all' ? 'cur' : ''}`}>All Events</p>
                 <p onClick={() => setSelected('user')}
                 className={`${selected === 'user' ? 'cur' : ''}`}>Your Events</p>
+                <p onClick={() => setSelected('booked')}
+                className={`${selected === 'booked' ? 'cur' : ''}`}>Your Bookings</p>
             </div>
         </div>
     )

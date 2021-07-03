@@ -4,7 +4,7 @@ import EventCard from "../components/EventCard"
 import FormContainer from "../components/FormContainer"
 import Tools from '../components/Tools'
 import { useLazyQuery, useQuery } from '@apollo/client';
-import { GET_EVENTS, GET_USER } from '../queries/Queries';
+import { GET_BOOKED_EVENTS, GET_EVENTS, GET_USER } from '../queries/Queries';
 import { AppContext } from '../utils/AppContext'
 
 const Events = () => {
@@ -13,10 +13,16 @@ const Events = () => {
     const [userEvents, setUserEvents] = useState([])
 
     const { userId } = useContext(AppContext)
-    console.log(userId)
-    const [getData] = useLazyQuery(GET_USER,{
+
+    const [getUserEvents] = useLazyQuery(GET_USER,{
         onCompleted: someData => {
             setUserEvents(someData.user.createdEvents)
+        }
+    })
+
+    const [getBookedEvents] = useLazyQuery(GET_BOOKED_EVENTS,{
+        onCompleted: someData => {
+            console.log(someData)
         }
     })
 
@@ -24,7 +30,10 @@ const Events = () => {
 
     useEffect(() => {
         if(selected === 'user'){
-            getData({ variables: { id: userId } })
+            getUserEvents({ variables: { id: userId } })
+        }
+        if(selected === 'booked'){
+            getBookedEvents({variables: {userId: userId}})
         }
     }, [selected])
 

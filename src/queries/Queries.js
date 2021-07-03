@@ -62,3 +62,45 @@ query Login($email: String!, $password: String!){
   }
 }
 `
+
+
+export const GET_BOOKED_EVENTS = gql`
+query Booking($userId: ID!){
+   bookings(userId: $userId){
+     createdAt
+     user{
+       email
+       id
+     }
+     event{
+       id
+       name
+       description
+       price
+       date
+       creator{
+         email
+         id
+       }
+     }
+   }
+}
+`
+
+export const BOOK_EVENT = gql`
+mutation($event: ID!, $user: ID!){
+   createBooking(event: $event, user: $user){
+     event {
+       id
+       name
+     }
+     user {
+       id
+       email
+     }
+     createdAt
+     updatedAt
+     id
+   }
+ }
+`
