@@ -12,6 +12,7 @@ const Events = () => {
     const [selected, setSelected] = useState('all')
     const [userEvents, setUserEvents] = useState([])
     const [bookings, setBookings] = useState([])
+    const [bookedIds, setbookedIds] = useState([])
 
     const { userId } = useContext(AppContext)
 
@@ -22,8 +23,13 @@ const Events = () => {
     })
 
     const [getBookedEvents] = useLazyQuery(GET_BOOKED_EVENTS,{
-        onCompleted: someData => {
-            setBookings(someData.bookings)
+        onCompleted: d => {
+            setBookings(d.bookings)
+            let res = []
+            d.bookings.forEach(b => {
+                res.push(b.event.id)
+            })
+            setbookedIds(res)
         }
     })
 
@@ -38,11 +44,15 @@ const Events = () => {
         }
     }, [selected])
 
+    useEffect(() => {
+        getBookedEvents({variables: {userId: userId}})
+    }, [selected])
+
     if (loading) {
         return <p>Loading...</p>
     }
 
-    console.log(bookings)
+    console.log(bookedIds)
 
     return (
         <div className="view-container">
@@ -58,14 +68,24 @@ const Events = () => {
                         {
                             selected === 'all' ? (
                                 data.events.map(e => (
-                                    <EventCard event={e} selected={selected} />
+                                    <EventCard 
+                                    event={e} 
+                                    selected={selected} 
+                                    booked={bookedIds}
+                                    setSelected={setSelected} />
                                 ))
                             )
                             : selected === 'user' ? userEvents.map(e => (
-                                <EventCard event={e} selected={selected} />
+                                <EventCard 
+                                event={e} 
+                                selected={selected}
+                                setSelected={setSelected} />
                             ))
                             : bookings.map(booking => (
-                                <EventCard event={booking.event} selected={selected} />
+                                <EventCard 
+                                event={booking.event} 
+                                selected={selected}
+                                setSelected={setSelected} />
                             ))
                         }
                     </div>

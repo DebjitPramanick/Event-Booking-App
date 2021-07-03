@@ -6,7 +6,7 @@ import {AppContext} from "../utils/AppContext"
 const EventCard = (props) => {
 
     const {userId} = useContext(AppContext)
-    const {event, selected} = props
+    const {event, selected, booked, setSelected} = props
 
     const [createBooking] = useMutation(BOOK_EVENT)
 
@@ -35,8 +35,14 @@ const EventCard = (props) => {
             <h3>{event.name}</h3>
             <p id="date">Event date: <span>{getDate(event.date)}</span></p>
             <p id="desc">{event.description}</p>
-            {event.creator.id === userId ? <button className="secondary-btn">View Details</button>
-            : <button className="secondary-btn" onClick={bookEvent}>$ {event.price}</button>}
+            {
+            selected === 'all' && event.creator.id === userId 
+            ? <button className="secondary-btn">View Details</button>
+            : selected === 'booked' ? <button className="secondary-btn">Cancel Booking</button>
+            : selected === 'user' ? <button className="secondary-btn">Delete Event</button>
+            : booked && booked.includes(event.id) ? <button className="secondary-btn" onClick={() => setSelected('booked')}>View Booking</button>
+            : <button className="secondary-btn" onClick={bookEvent}>$ {event.price}</button>
+            }
             {selected === 'all' ? (
                 <div className="created-by">{getName(event.creator.email)}</div>
             ) : null}
