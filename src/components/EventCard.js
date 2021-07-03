@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client'
 import React, { useContext } from 'react'
-import { BOOK_EVENT } from '../queries/Queries'
+import { BOOK_EVENT, GET_BOOKED_EVENTS } from '../queries/Queries'
 import {AppContext} from "../utils/AppContext"
 
 const EventCard = (props) => {
@@ -14,7 +14,7 @@ const EventCard = (props) => {
         createBooking({variables: {
             event: event.id,
             user: userId
-        }})
+        }, refetchQueries: [{query: GET_BOOKED_EVENTS, variables: { userId: userId}}]})
         .then(res => console.log(res))
         .catch(err => console.log(err))
     }

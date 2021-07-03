@@ -11,6 +11,7 @@ const Events = () => {
 
     const [selected, setSelected] = useState('all')
     const [userEvents, setUserEvents] = useState([])
+    const [bookings, setBookings] = useState([])
 
     const { userId } = useContext(AppContext)
 
@@ -22,7 +23,7 @@ const Events = () => {
 
     const [getBookedEvents] = useLazyQuery(GET_BOOKED_EVENTS,{
         onCompleted: someData => {
-            console.log(someData)
+            setBookings(someData.bookings)
         }
     })
 
@@ -41,6 +42,8 @@ const Events = () => {
         return <p>Loading...</p>
     }
 
+    console.log(bookings)
+
     return (
         <div className="view-container">
 
@@ -58,8 +61,11 @@ const Events = () => {
                                     <EventCard event={e} selected={selected} />
                                 ))
                             )
-                            : userEvents.map(e => (
+                            : selected === 'user' ? userEvents.map(e => (
                                 <EventCard event={e} selected={selected} />
+                            ))
+                            : bookings.map(booking => (
+                                <EventCard event={booking.event} selected={selected} />
                             ))
                         }
                     </div>
