@@ -67,6 +67,7 @@ query Login($email: String!, $password: String!){
 export const GET_BOOKED_EVENTS = gql`
 query Booking($userId: ID!){
    bookings(userId: $userId){
+     id
      createdAt
      user{
        email
@@ -101,6 +102,15 @@ mutation($event: ID!, $user: ID!){
      createdAt
      updatedAt
      id
+   }
+ }
+`
+
+export const CANCEL_BOOK_EVENT = gql`
+mutation($id: String!){
+   cancelBooking(id: $id){
+       name
+       description
    }
  }
 `

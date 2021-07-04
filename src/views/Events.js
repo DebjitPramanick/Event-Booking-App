@@ -52,7 +52,7 @@ const Events = () => {
         return <p>Loading...</p>
     }
 
-    console.log(bookedIds)
+    console.log(bookings)
 
     return (
         <div className="view-container">
@@ -81,9 +81,10 @@ const Events = () => {
                                 selected={selected}
                                 setSelected={setSelected} />
                             ))
-                            : bookings.map(booking => (
+                            : bookings.map(b => (
                                 <EventCard 
-                                event={booking.event} 
+                                booking={b}
+                                event={b.event} 
                                 selected={selected}
                                 setSelected={setSelected} />
                             ))
